@@ -188,7 +188,7 @@ hist(stepsByDayfilledNas,breaks = 50,col = "green",density = 40,freq = TRUE,ylab
 rug(stepsByDay)
 ```
 
-![plot of chunk stepsbyday with filled nas](figure/stepsbyday with filled nas-1.png)
+![plot of chunk stepsbydayFilledNas](figure/stepsbydayFilledNas-1.png)
 
 
 
@@ -228,21 +228,10 @@ main = " Average Steps Taken across weekday or weekend days \n per 5-minute inte
 xlab = "5-Min Interval", ylab = "Average Number of Steps"))
 ```
 
-![plot of chunk avgsteps per weekdaytype](figure/avgsteps per weekdaytype-1.png)
+![plot of chunk Stepsperweekdaytype](figure/Stepsperweekdaytype-1.png)
 
-```r
-head(Activitydata)
-```
 
-```
-##   steps       date interval
-## 1    NA 2012-10-01        0
-## 2    NA 2012-10-01        5
-## 3    NA 2012-10-01       10
-## 4    NA 2012-10-01       15
-## 5    NA 2012-10-01       20
-## 6    NA 2012-10-01       25
-```
+
 *Project Finish*
 
 

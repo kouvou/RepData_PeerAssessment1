@@ -156,7 +156,7 @@ head(Activityimputed,2)
 ####  4.Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
 
 
-```{r stepsbyday with filled nas}
+```{r stepsbydayFilledNas}
 stepsByDayfilledNas <- tapply(Activityimputed$stepsFilled, Activityimputed$date, sum)
 hist(stepsByDayfilledNas,breaks = 50,col = "green",density = 40,freq = TRUE,ylab = "No. of Days",xlab = "Steps per Day")
 rug(stepsByDay)
@@ -190,15 +190,15 @@ Activityimputed<-mutate(Activityimputed,weekdaytype=factor(1*(as.POSIXlt(Activit
 ####  2.Make a panel plot containing a time series plot (i.e.type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 
-```{r  avgsteps per weekdaytype}
+```{r  Stepsperweekdaytype}
 Activitydataperweekdaytype<-Activityimputed%>%group_by(interval,weekdaytype)%>%summarize( avg_steps = mean(stepsFilled))
 with( Activitydataperweekdaytype, xyplot( avg_steps ~ interval | weekdaytype, type = "l",layout = c(1,2), 
 main = " Average Steps Taken across weekday or weekend days \n per 5-minute interval",
 xlab = "5-Min Interval", ylab = "Average Number of Steps"))
 ```
-```{r test}
-head(Activitydata)
-```
+
+
+
 *Project Finish*
 
 
