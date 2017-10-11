@@ -1,6 +1,6 @@
----
-title: "Reproducible Research Course Project 1"
----
+"Reproducible Research Course Project 1"
+=======================================
+
 
 **Setting Global options default to echo code and set working directory and load needed packages**
 
@@ -27,8 +27,8 @@ dir.create("./RR_Course_Project_1")
 ```
 
 
-###Loading and preprocessing the data
 
+###Loading and preprocessing the data
 
 ####1.Load the data
 
@@ -190,7 +190,7 @@ Activityimputed<-mutate(Activityimputed,weekdaytype=factor(1*(as.POSIXlt(Activit
 ####2.Make a panel plot containing a time series plot (i.e.type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 
-```{r plot steps per weekdaytype}
+```{r  avgsteps per weekdaytype}
 Activitydataperweekdaytype<-Activityimputed%>%group_by(interval,weekdaytype)%>%summarize( avg_steps = mean(stepsFilled))
 with( Activitydataperweekdaytype, xyplot( avg_steps ~ interval | weekdaytype, type = "l",layout = c(1,2), 
 main = " Average Steps Taken across weekday or weekend days \n per 5-minute interval",
