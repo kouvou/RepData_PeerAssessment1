@@ -29,9 +29,9 @@ dir.create("./RR_Course_Project_1")
 
 
 
-###Loading and preprocessing the data
+###  Loading and preprocessing the data
 
-####1.Load the data
+####  1.Load the data
 
 
 **Download file if not exists**
@@ -60,7 +60,7 @@ Activitydata<-read.csv("./RR_Course_Project_1/activity.csv")
 ```
 
 
-####2.Process/transform the data (if necessary) into a format suitable for your analysis
+####  2.Process/transform the data (if necessary) into a format suitable for your analysis
 
 
 
@@ -69,10 +69,10 @@ Activitydata$date <- as.Date(Activitydata$date, "%Y-%m-%d")
 ```
 
 
-###What is mean total number of steps taken per day?
+###  What is mean total number of steps taken per day?
 
 
-####1. Make a histogram of the total number of steps taken each day
+####  1. Make a histogram of the total number of steps taken each day
 
 
 
@@ -86,7 +86,7 @@ rug(stepsByDay)
 ![plot of chunk stepsbyday](figure/stepsbyday-1.png)
 
 
-####2. Calculate and report the mean and median total number of steps taken per day
+####  2.Calculate and report the mean and median total number of steps taken per day
 
 
 
@@ -101,10 +101,10 @@ Medianstepsbyday <- as.integer(median(stepsByDay))
 **Median Steps By Day:10765**
 
 
-###What is the average daily activity pattern?
+###  What is the average daily activity pattern?
 
 
-####1.Make a time series plot (i.e.type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+####  1.Make a time series plot (i.e.type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 
 
@@ -117,7 +117,7 @@ g+geom_line(col="red")+labs(title="Average Daily Activity Pattern")+labs(x="5-mi
 ![plot of chunk activitypattern](figure/activitypattern-1.png)
 
 
-####2.Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+####  2.Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 
 
@@ -132,10 +132,10 @@ maxsteps<-as.integer(arrange(Activitydatadailypattern,desc(avg_steps))$avg_steps
 **Number of steps: 206**
 
 
-###Imputing missing values
+###  Imputing missing values
 
 
-####1.Calculate and report the total number of missing values in the dataset
+####  1.Calculate and report the total number of missing values in the dataset
 
 
 
@@ -152,10 +152,10 @@ colSums(is.na(Activitydata))
 **We have 2304 rows where Activity steps are missing** 
 
 
-####2.Devise a strategy for filling in all of the missing values in the dataset
+####  2.Devise a strategy for filling in all of the missing values in the dataset
 
 
-####3.Create a new dataset that is equal to the original dataset but with the missing data filled in
+####  3.Create a new dataset that is equal to the original dataset but with the missing data filled in
 
 *a.Used the mean steps across all days per 5-minute interval for the 5=minute intervals where steps were missing.*
 
@@ -178,7 +178,7 @@ head(Activityimputed,2)
 
 
 
-####4.Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
+####  4.Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
 
 
 
@@ -205,10 +205,10 @@ Medianstepsbyday2 <- as.integer(median(stepsByDay))
 *No differences noticed in the mean and median after filling missing values to the initial dataset*
 
 
-###Are there differences in activity patterns between weekdays and weekends?
+###  Are there differences in activity patterns between weekdays and weekends?
 
 
-####1.Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+####  1.Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
 
 
@@ -229,6 +229,9 @@ xlab = "5-Min Interval", ylab = "Average Number of Steps"))
 ```
 
 ![plot of chunk avgsteps per weekdaytype](figure/avgsteps per weekdaytype-1.png)
+
+
+*Project Finish*
 
 
 
