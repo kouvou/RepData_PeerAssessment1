@@ -187,7 +187,7 @@ Activityimputed<-mutate(Activityimputed,weekdaytype=factor(1*(as.POSIXlt(Activit
 ```
 
 
-####2.Make a panel plot containing a time series plot (i.e.type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+####  2.Make a panel plot containing a time series plot (i.e.type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 
 ```{r  avgsteps per weekdaytype}
@@ -196,8 +196,9 @@ with( Activitydataperweekdaytype, xyplot( avg_steps ~ interval | weekdaytype, ty
 main = " Average Steps Taken across weekday or weekend days \n per 5-minute interval",
 xlab = "5-Min Interval", ylab = "Average Number of Steps"))
 ```
-
-
+```{r test}
+head(Activitydata)
+```
 *Project Finish*
 
 
