@@ -1,52 +1,27 @@
-"Reproducible Research Course Project 1"
-=======================================
-
+---
+title: "Reproducible Research Course Project 1"
+output: github_document
+---
 
 **Setting Global options default to echo code and set working directory and load needed packages**
 
 
-
-```r
+```{r setoptionS, echo=TRUE}
 knitr::opts_chunk$set(echo=TRUE)
 knitr::opts_knit$set(root.dir = "~/R_Programs")
 library(dplyr)
-```
 
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 library(ggplot2)
-```
 
-```
-## Warning: package 'ggplot2' was built under R version 3.4.2
-```
-
-```r
 library(lattice)
+
 ```
 
 
 **Create Project's folder in working directory**
 
 
-
-```r
+```{r createprojectfolder} 
 if(!file.exists("./RR_Course_Project_1")){
 dir.create("./RR_Course_Project_1")
 }
@@ -62,8 +37,7 @@ dir.create("./RR_Course_Project_1")
 **Download file if not exists**
 
 
-
-```r
+```{r Downloadfile}
 if(!file.exists("./RR_Course_Project_1/repdata_data_activity.zip")){
 fileUrl <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 download.file(fileUrl, destfile = "./RR_Course_Project_1/repdata_data_activity.zip")
@@ -74,8 +48,7 @@ download.file(fileUrl, destfile = "./RR_Course_Project_1/repdata_data_activity.z
 **Unzip and Load data**
 
 
-
-```r
+```{r Unzip and Load data}
 if(!file.exists("./RR_Course_Project_1/activity.csv")){
 unzip("./RR_Course_Project_1/repdata_data_activity.zip",exdir ="./RR_Course_Project_1" )
 Activitydata<-read.csv("./RR_Course_Project_1/activity.csv")
@@ -88,8 +61,7 @@ Activitydata<-read.csv("./RR_Course_Project_1/activity.csv")
 ####2.Process/transform the data (if necessary) into a format suitable for your analysis
 
 
-
-```r
+```{r Transformdata}
 Activitydata$date <- as.Date(Activitydata$date, "%Y-%m-%d")
 ```
 
@@ -100,30 +72,26 @@ Activitydata$date <- as.Date(Activitydata$date, "%Y-%m-%d")
 ####1. Make a histogram of the total number of steps taken each day
 
 
-
-```r
+```{r stepsbyday}
 ActivitydataNAsremoved<-Activitydata%>%filter(!is.na(steps))
 stepsByDay <- tapply(ActivitydataNAsremoved$steps, ActivitydataNAsremoved$date, sum)
 hist(stepsByDay,breaks = 50,col = "blue",density = 40,freq = TRUE,ylab = "No. of Days",xlab = "Steps per Day")
 rug(stepsByDay)
 ```
 
-![plot of chunk stepsbyday](figure/stepsbyday-1.png)
-
 
 ####2. Calculate and report the mean and median total number of steps taken per day
 
 
-
-```r
+```{r Mean & Median}
 Meanstepsbyday <- as.integer(mean(stepsByDay))
 Medianstepsbyday <- as.integer(median(stepsByDay))
-```
+```      
 
 
-**Mean Steps By Day:10766**
+**Mean Steps By Day:`r Meanstepsbyday`**
 
-**Median Steps By Day:10765**
+**Median Steps By Day:`r Medianstepsbyday`**
 
 
 ###What is the average daily activity pattern?
@@ -132,29 +100,25 @@ Medianstepsbyday <- as.integer(median(stepsByDay))
 ####1.Make a time series plot (i.e.type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 
-
-```r
+```{r activitypattern}
 Activitydatadailypattern<-ActivitydataNAsremoved%>%group_by(interval)%>%summarize( avg_steps = mean(steps))
 g<-ggplot(Activitydatadailypattern,aes(interval,avg_steps))
 g+geom_line(col="red")+labs(title="Average Daily Activity Pattern")+labs(x="5-minute interval",y="Average steps taken across all days")
 ```
 
-![plot of chunk activitypattern](figure/activitypattern-1.png)
-
 
 ####2.Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 
-
-```r
+```{r maxsteps}
 intervalmaxsteps<-arrange(Activitydatadailypattern,desc(avg_steps))$interval[1]
 maxsteps<-as.integer(arrange(Activitydatadailypattern,desc(avg_steps))$avg_steps[1])
 ```
 
 
-**5-Minute Interval on average across all days with max number of steps: 835**
+**5-Minute Interval on average across all days with max number of steps: `r intervalmaxsteps`**
 
-**Number of steps: 206**
+**Number of steps: `r maxsteps`**
 
 
 ###Imputing missing values
@@ -163,18 +127,12 @@ maxsteps<-as.integer(arrange(Activitydatadailypattern,desc(avg_steps))$avg_steps
 ####1.Calculate and report the total number of missing values in the dataset
 
 
-
-```r
+```{r missing values}
 colSums(is.na(Activitydata))
 ```
 
-```
-##    steps     date interval 
-##     2304        0        0
-```
 
-
-**We have 2304 rows where Activity steps are missing** 
+**We have `r colSums(is.na(Activitydata))[1]` rows where Activity steps are missing** 
 
 
 ####2.Devise a strategy for filling in all of the missing values in the dataset
@@ -187,18 +145,11 @@ colSums(is.na(Activitydata))
 *b.Created a new dataset 'Activityimputed' and also a new variable 'stepsFilled' which is a dublicate of steps but with filled missing values*
 
 
-
-```r
+``` {r Imputevalues}
 Activityimputed<-merge(Activitydata,Activitydatadailypattern,by.x="interval",by.y="interval")
 Activityimputed$stepsFilled<-Activityimputed$steps
 Activityimputed$stepsFilled[is.na(Activityimputed$steps)]=Activityimputed$avg_steps[is.na(Activityimputed$steps)]
 head(Activityimputed,2)
-```
-
-```
-##   interval steps       date avg_steps stepsFilled
-## 1        0    NA 2012-10-01  1.716981    1.716981
-## 2        0     0 2012-11-23  1.716981    0.000000
 ```
 
 
@@ -206,26 +157,22 @@ head(Activityimputed,2)
 ####4.Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
 
 
-
-```r
+```{r stepsbyday with filled nas}
 stepsByDayfilledNas <- tapply(Activityimputed$stepsFilled, Activityimputed$date, sum)
 hist(stepsByDayfilledNas,breaks = 50,col = "green",density = 40,freq = TRUE,ylab = "No. of Days",xlab = "Steps per Day")
 rug(stepsByDay)
 ```
 
-![plot of chunk stepsbyday with filled nas](figure/stepsbyday with filled nas-1.png)
 
-
-
-```r
+```{r New Mead and Median with filled missing values}
 Meanstepsbyday2 <- as.integer(mean(stepsByDay))
 Medianstepsbyday2 <- as.integer(median(stepsByDay))
 ```
 
 
-**Mean Steps By Day with filled missing values:10766 from initial estimate:10766**
+**Mean Steps By Day with filled missing values:`r Meanstepsbyday2` from initial estimate:`r Meanstepsbyday`**
 
-**Median Steps By Day with filled missing values:10765 from initial estimate:10765**
+**Median Steps By Day with filled missing values:`r Medianstepsbyday2` from initial estimate:`r Medianstepsbyday`**
 
 *No differences noticed in the mean and median after filling missing values to the initial dataset*
 
@@ -236,8 +183,7 @@ Medianstepsbyday2 <- as.integer(median(stepsByDay))
 ####1.Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
 
-
-```r
+```{r weedays}
 Activityimputed<-mutate(Activityimputed,weekdaytype=factor(1*(as.POSIXlt(Activityimputed$date)$wday %in% c(0,6)),labels=c("weekend","weekday")))
 ```
 
@@ -245,15 +191,10 @@ Activityimputed<-mutate(Activityimputed,weekdaytype=factor(1*(as.POSIXlt(Activit
 ####2.Make a panel plot containing a time series plot (i.e.type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
 
-
-```r
+```{r plot steps per weekdaytype}
 Activitydataperweekdaytype<-Activityimputed%>%group_by(interval,weekdaytype)%>%summarize( avg_steps = mean(stepsFilled))
 with( Activitydataperweekdaytype, xyplot( avg_steps ~ interval | weekdaytype, type = "l",layout = c(1,2), 
 main = " Average Steps Taken across weekday or weekend days \n per 5-minute interval",
 xlab = "5-Min Interval", ylab = "Average Number of Steps"))
 ```
-
-![plot of chunk plot steps per weekdaytype](figure/plot steps per weekdaytype-1.png)
-
-
 

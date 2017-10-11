@@ -1,6 +1,6 @@
-"Reproducible Research Course Project 1"
-=======================================
-
+---
+title: "Reproducible Research Course Project 1"
+---
 
 **Setting Global options default to echo code and set working directory and load needed packages**
 
