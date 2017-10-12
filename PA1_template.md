@@ -2,7 +2,7 @@
 =======================================
 
 
-**Setting Global options default to echo code and set working directory and load needed packages**
+**Setting Global options default to echo code, set working directory and load needed packages**
 
 
 
@@ -10,9 +10,34 @@
 knitr::opts_chunk$set(echo=TRUE)
 knitr::opts_knit$set(root.dir = "~/R_Programs")
 library(dplyr)
+```
 
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 library(ggplot2)
+```
 
+```
+## Warning: package 'ggplot2' was built under R version 3.4.2
+```
+
+```r
 library(lattice)
 ```
 
@@ -73,6 +98,9 @@ Activitydata$date <- as.Date(Activitydata$date, "%Y-%m-%d")
 
 
 ####  1. Make a histogram of the total number of steps taken each day
+
+
+*For this part of the assignment we can ignore missing values*
 
 
 
@@ -157,7 +185,7 @@ colSums(is.na(Activitydata))
 
 ####  3.Create a new dataset that is equal to the original dataset but with the missing data filled in
 
-*a.Used the mean steps across all days per 5-minute interval for the 5=minute intervals where steps were missing.*
+*a.Used the mean steps across all days per 5-minute interval for the 5-minute intervals where steps were missing.*
 
 *b.Created a new dataset 'Activityimputed' and also a new variable 'stepsFilled' which is a dublicate of steps but with filled missing values*
 
@@ -202,7 +230,7 @@ Medianstepsbyday2 <- as.integer(median(stepsByDay))
 
 **Median Steps By Day with filled missing values:10765 from initial estimate:10765**
 
-*No differences noticed in the mean and median after filling missing values to the initial dataset*
+*No differences noticed in the mean and median after filling missing values to the initial dataset. We have an increase in the No. of days when counting days per Total-Steps-per-Day (above Histogram) since we no longer have missing values.*
 
 
 ###  Are there differences in activity patterns between weekdays and weekends?
