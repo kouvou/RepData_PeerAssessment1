@@ -167,8 +167,8 @@ rug(stepsByDay)
 
 
 ```{r New Mead and Median with filled missing values}
-Meanstepsbyday2 <- as.integer(mean(stepsByDay))
-Medianstepsbyday2 <- as.integer(median(stepsByDay))
+Meanstepsbyday2 <- as.integer(mean(stepsByDayfilledNas))
+Medianstepsbyday2 <- as.integer(median(stepsByDayfilledNas))
 ```
 
 

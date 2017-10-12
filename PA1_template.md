@@ -221,14 +221,14 @@ rug(stepsByDay)
 
 
 ```r
-Meanstepsbyday2 <- as.integer(mean(stepsByDay))
-Medianstepsbyday2 <- as.integer(median(stepsByDay))
+Meanstepsbyday2 <- as.integer(mean(stepsByDayfilledNas))
+Medianstepsbyday2 <- as.integer(median(stepsByDayfilledNas))
 ```
 
 
 **Mean Steps By Day with filled missing values:10766 from initial estimate:10766**
 
-**Median Steps By Day with filled missing values:10765 from initial estimate:10765**
+**Median Steps By Day with filled missing values:10766 from initial estimate:10765**
 
 *No differences noticed in the mean and median after filling missing values to the initial dataset. We have an increase in the No. of days when counting days per Total-Steps-per-Day (above Histogram) since we no longer have missing values.*
 
